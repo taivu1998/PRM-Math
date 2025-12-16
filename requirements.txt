@@ -1,0 +1,23 @@
+# Core ML dependencies
+numpy<2.0.0
+torch>=2.0.0
+transformers>=4.36.0
+datasets>=2.14.0
+accelerate>=0.25.0
+
+# Training
+trl>=0.7.0
+peft>=0.7.0
+bitsandbytes>=0.41.0
+
+# Inference
+vllm>=0.2.0
+
+# Utilities
+pyyaml>=6.0
+tqdm>=4.66.0
+
+# Unsloth for optimized training (install separately for best results)
+# For CUDA 11.8: pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
+# For CUDA 12.1: pip install "unsloth[cu121-ampere-torch220] @ git+https://github.com/unslothai/unsloth.git"
+# See: https://github.com/unslothai/unsloth for installation instructions

@@ -1,0 +1,163 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Project specific
+checkpoints/
+!checkpoints/.gitkeep
+logs/
+!logs/.gitkeep
+eval_results/
+*.log
+
+# Model files (large)
+*.bin
+*.pt
+*.pth
+*.safetensors
+*.gguf
+
+# Data files
+*.parquet
+*.arrow
+data/
+
+# Hugging Face cache
+.cache/
+
+# Mac
+.DS_Store
+
+# Gemini output (used for repo building)
+gemini_output.txt
+
+# Claude Code
+.claude/
+
+# Additional model formats
+*.ckpt
+*.h5
+*.hdf5
+*.onnx
+*.pb
+*.tflite
+
+# Large data files
+*.pkl
+*.pickle
+*.npy
+*.npz
+*.csv
+*.jsonl
+*.json.gz
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# ML experiment tracking
+wandb/
+mlruns/
+tensorboard/
+runs/
+outputs/
+results/
+
+# Hugging Face
+.huggingface/
+hub/
+models--*/
+
+# Dataset cache
+datasets/
+*.arrow
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# Large media files
+*.mp4
+*.avi
+*.mov
+*.mp3
+*.wav

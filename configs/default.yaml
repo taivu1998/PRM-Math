@@ -1,0 +1,38 @@
+project:
+  name: "qwen-prm-math"
+  seed: 42
+  output_dir: "./checkpoints"
+  logging_dir: "./logs"
+
+data:
+  # Using a dataset with 'input', 'process' (list of steps), and 'labels' (list of scores)
+  dataset_name: "peiyi9979/Math-Shepherd" 
+  max_samples: 10000 # Limit for sprint speed
+  balance_positives: true # Downsample positives to 50%
+  validation_split: 0.1
+
+model:
+  base_model: "Qwen/Qwen2.5-Math-1.5B-Instruct"
+  max_seq_length: 2048
+  load_in_4bit: true
+
+lora:
+  r: 16
+  lora_alpha: 16
+  lora_dropout: 0.05
+  target_modules: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+
+training:
+  batch_size: 8
+  gradient_accumulation_steps: 4
+  learning_rate: 2.0e-4
+  num_train_epochs: 1
+  save_strategy: "steps"
+  save_steps: 100
+  logging_steps: 10
+  response_template: "<|verify|>" # The trigger for the verifier
+
+inference:
+  n_candidates: 16
+  temperature: 0.8
+  max_tokens: 1
