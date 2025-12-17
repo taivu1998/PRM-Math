@@ -1,4 +1,4 @@
-# PRM-Math: Advanced Test-Time Scaling with Process Reward Models
+# PRM-Math: Inference-Time Compute Scaling via Dense Process Supervision
 
 A production-ready implementation of **Process Reward Models (PRMs)** for mathematical reasoning, featuring state-of-the-art test-time compute scaling techniques. This project enables fine-tuning generative verifiers and deploying advanced inference strategies including **Best-of-N Search**, **PRM-Weighted Voting**, and **Monte Carlo Tree Search (MCTS)** with learned value functions.
 
