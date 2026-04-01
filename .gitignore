@@ -156,6 +156,9 @@ datasets/
 *.temp
 *.bak
 
+# Local planning documents
+IMPROVEMENT_PLAN.local.md
+
 # Large media files
 *.mp4
 *.avi

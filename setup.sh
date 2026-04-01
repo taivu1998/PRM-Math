@@ -62,16 +62,21 @@ fi
 # Install main dependencies
 echo ""
 echo "Installing main dependencies..."
-pip install numpy"<2.0.0"
-pip install transformers>=4.36.0 datasets>=2.14.0 accelerate>=0.25.0
-pip install trl>=0.7.0 peft>=0.7.0
-pip install pyyaml>=6.0 tqdm>=4.66.0
+pip install "numpy<2.0.0"
+pip install \
+    "transformers>=4.36.0" \
+    "datasets>=2.14.0" \
+    "accelerate>=0.25.0" \
+    "trl>=0.7.0" \
+    "peft>=0.7.0" \
+    "pyyaml>=6.0" \
+    "tqdm>=4.66.0"
 
 # Install bitsandbytes (CUDA only)
 if [ "$HAS_CUDA" = true ]; then
     echo ""
     echo "Installing bitsandbytes..."
-    pip install bitsandbytes>=0.41.0
+    pip install "bitsandbytes>=0.41.0"
 fi
 
 # Install Unsloth (CUDA only, for training)
@@ -92,7 +97,7 @@ fi
 if [ "$HAS_CUDA" = true ]; then
     echo ""
     echo "Installing vLLM..."
-    pip install vllm>=0.2.0
+    pip install "vllm>=0.2.0"
 else
     echo ""
     echo "Note: vLLM requires CUDA. Skipping vLLM installation."

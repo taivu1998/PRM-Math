@@ -84,6 +84,7 @@ from src.config_parser import ConfigParser
 from src.utils import seed_everything, setup_logging
 from src.dataset import PRMDatasetBuilder
 from src.model import PRMModelLoader
+from src.scoring.verifier import build_verifier_contract, load_verifier_settings
 
 
 def main():
@@ -117,13 +118,28 @@ def main():
     # 4. Collator
     # This effectively makes it a classification task by ignoring the loss
     # on everything except the token following <|verify|>
-    response_template = config['training']['response_template']
+    verifier_settings = load_verifier_settings(config)
+    response_template = verifier_settings["verify_token"]
 
     # Tokenize the response template to get the token IDs
     response_template_ids = tokenizer.encode(
         response_template, add_special_tokens=False
     )
     logger.info(f"Response template '{response_template}' -> token IDs: {response_template_ids}")
+
+    contract = build_verifier_contract(
+        tokenizer,
+        verify_token=verifier_settings["verify_token"],
+        positive_label=verifier_settings["positive_label"],
+        negative_label=verifier_settings["negative_label"],
+    )
+    logger.info(
+        "Verifier labels: %r -> %s | %r -> %s",
+        contract.positive_label,
+        contract.positive_token_id,
+        contract.negative_label,
+        contract.negative_token_id,
+    )
 
     # Use custom collator for newer TRL versions, or built-in for older versions
     if USE_CUSTOM_COLLATOR:

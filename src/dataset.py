@@ -5,6 +5,8 @@ from datasets import load_dataset, Dataset
 from transformers import PreTrainedTokenizer
 from tqdm import tqdm
 
+from src.scoring.verifier import load_verifier_settings
+
 
 class PRMDatasetBuilder:
     """
@@ -30,7 +32,10 @@ class PRMDatasetBuilder:
         """
         self.config = config
         self.tokenizer = tokenizer
-        self.verify_token = config['training']['response_template']  # e.g. "<|verify|>"
+        verifier_settings = load_verifier_settings(config)
+        self.verify_token = verifier_settings["verify_token"]
+        self.positive_label = verifier_settings["positive_label"]
+        self.negative_label = verifier_settings["negative_label"]
 
     def _extract_problem_from_input(self, input_text: str) -> str:
         """
@@ -166,11 +171,11 @@ class PRMDatasetBuilder:
 
             for context, step, label in parsed_steps:
                 # Determine target token
-                target = "+" if label == 1 else "-"
+                target = self.positive_label if label == 1 else self.negative_label
 
                 # Balancing Logic - undersample positives to ~50/50
                 if self.config['data'].get('balance_positives', True):
-                    if target == "+":
+                    if target == self.positive_label:
                         # Skip if we have too many positives relative to negatives
                         if pos_count > neg_count + 100:
                             skipped_for_balance += 1
@@ -179,7 +184,7 @@ class PRMDatasetBuilder:
                     else:
                         neg_count += 1
                 else:
-                    if target == "+":
+                    if target == self.positive_label:
                         pos_count += 1
                     else:
                         neg_count += 1
@@ -187,7 +192,7 @@ class PRMDatasetBuilder:
                 # Format: Context + Step + VerifyToken + Target
                 # The DataCollatorForCompletionOnlyLM will handle masking
                 # so loss is only calculated on tokens AFTER <|verify|>
-                full_text = f"{context}\n{step}\n{self.verify_token} {target}"
+                full_text = f"{context}\n{step}\n{self.verify_token}{target}"
 
                 # Check sequence length
                 tokenized = self.tokenizer.encode(full_text)

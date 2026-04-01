@@ -1,4 +1,4 @@
-.PHONY: install clean train inference evaluate
+.PHONY: install clean train inference evaluate test
 
 # Default config and checkpoint paths
 CONFIG ?= configs/default.yaml
@@ -42,3 +42,7 @@ endif
 evaluate:
 	python scripts/evaluate.py --model_path $(CHECKPOINT) --dataset $(DATASET) \
 		--n_candidates $(N_CANDIDATES) --n_problems $(N_PROBLEMS)
+
+# Tests
+test:
+	python -m pytest
